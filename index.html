@@ -198,8 +198,8 @@ a{color:#111814}a:hover{color:#4A5550}
 <section style="max-width: 1200px; margin: 0 auto; padding: 96px 24px 0">
 <div id="tq" style="max-width: 880px; display: flex; flex-direction: column; gap: 28px; border-left: 3px solid #C2410C; padding-left: clamp(20px, 4vw, 40px)">
 <figure aria-live="polite" style="margin: 0; display: flex; flex-direction: column; gap: 22px">
-<blockquote style="margin: 0; min-height: 3.75em; font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 500; font-size: clamp(1.6rem, 3.2vw, 2.4rem); line-height: 1.25; letter-spacing: -0.015em"><span id="tq-text">“Working with Brandon materially changed the direction of my business.”</span></blockquote>
-<figcaption id="tq-by" style="font-size: 16px; color: #4A5550">Founder, seed-stage biotech company</figcaption>
+<blockquote id="tq-text" style="margin: 0; display: grid; font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 500; font-size: clamp(1.6rem, 3.2vw, 2.4rem); line-height: 1.25; letter-spacing: -0.015em"><span data-k="0" style="grid-area: 1 / 1">“Working with Brandon materially changed the direction of my business.”</span><span data-k="1" style="grid-area: 1 / 1; visibility: hidden">“Brandon totally revamped how we think about our data and implemented systems that we’ve used for years. They keep us efficient to this day.”</span></blockquote>
+<figcaption id="tq-by" style="display: grid; font-size: 16px; color: #4A5550"><span data-k="0" style="grid-area: 1 / 1">Founder, seed-stage biotech company</span><span data-k="1" style="grid-area: 1 / 1; visibility: hidden">Venture capital firm</span></figcaption>
 </figure>
 <div style="display: flex; gap: 4px; margin-left: -11px">
 <button type="button" class="tq-dot" data-i="0" aria-label="Show testimonial 1" style="width: 32px; height: 32px; border: 0; background: transparent; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer"><span style="display: block; width: 10px; height: 10px; border-radius: 999px; background: #C2410C"></span></button>
@@ -270,17 +270,16 @@ a{color:#111814}a:hover{color:#4A5550}
 </div>
 <script>
 (function(){
-  var Q=[
-    {t:"Working with Brandon materially changed the direction of my business.",b:"Founder, seed-stage biotech company"},
-    {t:"Brandon totally revamped how we think about our data and implemented systems that we\u2019ve used for years. They keep us efficient to this day.",b:"Venture capital firm"}
-  ];
-  var i=0,paused=false,box=document.getElementById("tq"),tx=document.getElementById("tq-text"),by=document.getElementById("tq-by"),dots=box.querySelectorAll(".tq-dot");
-  function show(n){i=n;tx.textContent="\u201c"+Q[i].t+"\u201d";by.textContent=Q[i].b;
-    dots.forEach(function(d,k){d.firstChild.style.background=k===i?"#C2410C":"#C9CEC6";});}
+  var i=0,paused=false,box=document.getElementById("tq"),
+      parts=box.querySelectorAll("#tq-text > span, #tq-by > span"),
+      dots=box.querySelectorAll(".tq-dot"),n=dots.length;
+  function show(k){i=k;
+    parts.forEach(function(p){p.style.visibility=+p.dataset.k===i?"visible":"hidden";});
+    dots.forEach(function(d,j){d.firstChild.style.background=j===i?"#C2410C":"#C9CEC6";});}
   dots.forEach(function(d){d.addEventListener("click",function(){show(+d.dataset.i);});});
   box.addEventListener("mouseenter",function(){paused=true;});
   box.addEventListener("mouseleave",function(){paused=false;});
-  setInterval(function(){if(!paused)show((i+1)%Q.length);},7000);
+  setInterval(function(){if(!paused)show((i+1)%n);},7000);
 })();
 </script>
 </body>
